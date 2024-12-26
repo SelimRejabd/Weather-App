@@ -1,25 +1,25 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { TemperatureState } from '../interfaces/WeatherInterface';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { TemperatureState } from "../interfaces/WeatherInterface";
+
+const base_url = import.meta.env.REACT_APP_BASE_URL;
 
 const initialState: TemperatureState = {
-  temperature: '',
-  unit: '',
-  timestamp: '',
-  loading: false,
+  temperature: "",
+  unit: "",
+  timestamp: "",
+  loading: true,
   error: null,
 };
-
 export const fetchTemperature = createAsyncThunk(
-  'temperature/fetchTemperature',
+  "temperature/fetchTemperature",
   async () => {
-    const response = await axios.get('http://localhost:5000/api/v1/temperature');
-    return response.data.data;
+    const response = await axios.get(`${base_url}/temperature`);
+    return response.data;
   }
 );
-
 const weatherSlice = createSlice({
-  name: 'weather',
+  name: "weather",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -30,13 +30,13 @@ const weatherSlice = createSlice({
       })
       .addCase(fetchTemperature.fulfilled, (state, action) => {
         state.loading = false;
-        state.temperature = action.payload.temperature;
-        state.unit = action.payload.unit;
-        state.timestamp = action.payload.timestamp;
+        state.temperature = action?.payload?.data?.temperature;
+        state.unit = action?.payload?.data?.unit;
+        state.timestamp = action?.payload?.data?.timestamp;
       })
       .addCase(fetchTemperature.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to fetch data';
+        state.error = action?.error?.message || "Failed to fetch data";
       });
   },
 });

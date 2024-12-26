@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import router from "./router";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import notFound from "./app/middlewares/notFound";
 const cors = require('cors');
 
 dotenv.config();
@@ -19,3 +20,4 @@ app.use(globalErrorHandler);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+app.use(notFound);
