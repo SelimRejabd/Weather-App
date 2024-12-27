@@ -14,8 +14,14 @@ const initialState: TemperatureState = {
 export const fetchTemperature = createAsyncThunk(
   "temperature/fetchTemperature",
   async () => {
-    const response = await axios.get(`${base_url}/temperature`);
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${base_url}/weather/temperature-without-auth`
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 const weatherSlice = createSlice({
