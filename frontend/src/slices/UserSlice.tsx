@@ -10,6 +10,7 @@ interface UserState {
   loading: boolean;
   success: boolean;
   message: string;
+  token?: string;
 }
 
 const initialState: UserState = {
@@ -18,6 +19,7 @@ const initialState: UserState = {
   loading: false,
   success: false,
   message: "",
+  token: "",
 };
 
 export const registerUser = createAsyncThunk(
@@ -75,7 +77,7 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        // state.user = action.payload;
         state.message = action?.payload?.message;
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -87,8 +89,10 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        state.error = null;
+        state.user = action?.payload?.userData;
+        state.token = action?.payload?.userData?.token;
         state.loading = false;
-        state.user = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -102,6 +106,8 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.success = action?.payload?.success;
+        state.token = "";
+        state.error = "";
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.error = state.error = action.payload as string;

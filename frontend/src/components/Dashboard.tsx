@@ -39,7 +39,6 @@ const Dashboard = () => {
 
         {!loading && !error && (
           <>
-            
             <div className="bg-white w-full max-w-5xl p-6 rounded-lg shadow-lg flex justify-between items-center mb-8">
               <div>
                 <h1 className="text-4xl font-bold">
@@ -54,21 +53,28 @@ const Dashboard = () => {
               </div>
             </div>
 
-
             <div className="bg-white w-full max-w-5xl p-6 rounded-lg shadow-lg mb-8">
               <h2 className="text-xl font-bold mb-4">Hourly Forecast</h2>
               <div className="grid grid-cols-7 gap-4">
-                {["9:00 PM", "10:00 PM", "11:00 PM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM"].map(
-                  (time, index) => (
-                    <div key={index} className="text-center">
-                      <div className="text-gray-700 text-lg font-medium">
-                        {[21, 22, 20, 19, 18, 22, 25][index]}°C
-                      </div>
-                      <div>{["☀️", "☀️", "☁️", "☁️", "🌧","☀️","☀️"][index]}</div>
-                      <div className="text-gray-500 text-sm">{time}</div>
+                {[
+                  "9:00 PM",
+                  "10:00 PM",
+                  "11:00 PM",
+                  "12:00 PM",
+                  "1:00 PM",
+                  "2:00 PM",
+                  "3:00 PM",
+                ].map((time, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-gray-700 text-lg font-medium">
+                      {[21, 22, 20, 19, 18, 22, 25][index]}°C
                     </div>
-                  )
-                )}
+                    <div>
+                      {["☀️", "☀️", "☁️", "☁️", "🌧", "☀️", "☀️"][index]}
+                    </div>
+                    <div className="text-gray-500 text-sm">{time}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -81,7 +87,9 @@ const Dashboard = () => {
                       <div className="text-gray-700 text-lg font-medium">
                         {[21, 20, 16, 17, 18, 19, 22][index]}°C
                       </div>
-                      <div>{["☀️", "☀️", "☁️", "☁️", "🌧", "🌧", "☀️"][index]}</div>
+                      <div>
+                        {["☀️", "☀️", "☁️", "☁️", "🌧", "🌧", "☀️"][index]}
+                      </div>
                       <div className="text-gray-500 text-sm">{day}</div>
                     </div>
                   )

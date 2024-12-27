@@ -21,7 +21,7 @@ const Registration: React.FC = () => {
     try {
       await dispatch(registerUser({ name, email, password })).unwrap();
       alert("Registration successful!");
-      navigate("/");
+      navigate("/login");
     } catch (err: any) {
       setError(err.message || "Registration failed. Please try again.");
     } finally {

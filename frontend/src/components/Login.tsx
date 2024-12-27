@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAppDispatch } from "../hooks/hooks";
 import { loginUser } from "../slices/UserSlice";
+import { clearError } from "../slices/WeatherSlice";
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,9 @@ const Login: React.FC = () => {
     setLoading(true);
     setError("");
     try {
+      await dispatch(clearError);
       await dispatch(loginUser({ email, password })).unwrap();
+
       alert("Login successful!");
       navigate("/");
     } catch (err: any) {

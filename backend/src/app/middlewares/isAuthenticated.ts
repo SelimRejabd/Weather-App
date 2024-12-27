@@ -14,8 +14,7 @@ const isAuthenticated = async (
   next: NextFunction
 ) => {
   try {
-    const token = req.cookies.token;
-    console.log(token);
+    const token = req?.cookies?.token || req?.headers?.authorization?.slice(7);
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
